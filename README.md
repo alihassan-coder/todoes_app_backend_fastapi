@@ -27,7 +27,7 @@ poetry install
 ## Set up Environment Variables
 Create a `.env` file in the root directory and add your MongoDB connection string:
 ```sh
-db_URI=mongodb+srv://yourusername:yourpassword@cluster.mongodb.net/todo_db
+db_URI= your db uri
 ```
 
 ## Running the Application
