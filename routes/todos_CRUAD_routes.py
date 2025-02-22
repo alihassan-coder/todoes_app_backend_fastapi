@@ -207,4 +207,32 @@ def update_todos(id: str, todo: AddTodos):
             "status": "failed"
         }
     
-    
+
+# serch a todo by title in database by title
+@CRUAD_routes.get("/search_todos_by_title/{title}")
+def search_todos_by_title(title: str):
+    try:
+        todos = db.AddTodos.find({"title": {"$regex": title, "$options": "i"}})
+        listTodos = []
+        for todo in todos:
+            listTodos.append({
+                "id": str(todo["_id"]),
+                "title": todo["title"],
+                "description": todo["description"],
+                "status": todo["status"],
+                "created_at": todo["created_at"],
+            })
+        return {
+            "data": listTodos,
+            "error": None,
+            "message": "Todos read successfully",
+            "status": "success"
+        }
+    except Exception as e:
+        print(f"Error reading todos: {e}")
+        return {
+            "data": [],
+            "error": "Error reading todos",
+            "message": str(e),
+            "status": "failed"
+        }
